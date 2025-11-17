@@ -25,27 +25,89 @@ transmitter gain, receiver gain, radar frequency, radar cross section, and minim
 6. Execute the Program: Run the Python script to calculate and display the maximum range of the radar.
 
 
-   ___Algorithm__:
+__Algorithm__:
+ 1) Start the program
+Initialize the radar range evaluation process.
+
+2) Import required libraries
+Load the necessary Python packages (e.g., math or numpy) to support calculations.
+
+3) Define input parameters & radar range function
+Assign values to transmitted power, antenna gains, wavelength or frequency, radar cross-section, and minimum detectable signal;
+then create a function implementing the Radar Range Equation.
+
+4) Compute the maximum radar range
+Substitute parameters into the Radar Range Equation and evaluate the resulting maximum range.
+
+5) Display/plot the output
+Print the calculated radar range and visualize results using appropriate plots. 
+
+
+ __Code__:
+```import numpy as np
+import matplotlib.pyplot as plt
+
+# Given values
+Pt = 1000
+G = 40
+lambda_ = 0.05
+sigma = 10
+pi4 = (4 * np.pi) ** 3
+
+R = np.linspace(1e3, 200e3, 500)     # Range
+Pr_R = (Pt * G**2 * lambda_**2 * sigma) / (pi4 * R**4)
+Pr_R_dB = 10 * np.log10(Pr_R)
+
+plt.figure(1)
+plt.plot(R / 1000, Pr_R_dB)
+plt.xlabel("Range (km)")
+plt.ylabel("Power Received (dB)")
+plt.title("Received Power vs Range (Radar Equation)")
+plt.grid(True)
+
+Pt_values = np.linspace(100, 10000, 500)
+R_fixed = 50e3
+Pr_Pt = (Pt_values * G**2 * lambda_**2 * sigma) / (pi4 * R_fixed**4)
+
+plt.figure(2)
+plt.plot(Pt_values, Pr_Pt)
+plt.xlabel("Power Transmitted")
+plt.ylabel("Power Received")
+plt.title("Received Power vs Transmitted Power")
+plt.grid(True)
+
+G_values = np.linspace(5, 60, 500)
+Pt_fixed = 3000
+Pr_G = (Pt_fixed * G_values**2 * lambda_**2 * sigma) / (pi4 * R_fixed**4)
+
+plt.figure(3)
+plt.plot(G_values, Pr_G)
+plt.xlabel("Gain")
+plt.ylabel("Power Received")
+plt.title("Received Power vs Antenna Gain")
+plt.grid(True)
+
+plt.show()
+```
+
+__Output__:
+   
+<img width="1158" height="835" alt="image" src="https://github.com/user-attachments/assets/d0d8553b-6236-4f66-bd9d-90399ac977a0" />
+
+
+
+<img width="1094" height="828" alt="image" src="https://github.com/user-attachments/assets/a7261c1d-0a30-44f7-89a8-288c6356782b" />
+
+
+
+<img width="1082" height="840" alt="image" src="https://github.com/user-attachments/assets/89a8d24f-bb1a-434c-b8bc-a96e64341cbc" />
+
+
+
+
+__Result__:
    
 
-
-
-
-
-
-
-   __Output__:
-   
-
-
-
-
-
-
-
-   __Result__:
-   
-
-
+The maximum range of the radar system was successfully calculated using the Radar Range Equation and verified through Python programming.
 
 
